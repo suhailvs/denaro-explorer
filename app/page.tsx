@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main><h1>Helloworld</h1>
     <Link href="/users">users</Link>
-    <ProductCard/>
+    
     </main>
       
   );

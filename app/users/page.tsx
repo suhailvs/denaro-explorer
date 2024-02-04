@@ -1,20 +1,33 @@
 import React from 'react'
-interface Users {
+interface Block {
     id: number;
-    name: string;
+    hash: string;
 }
+
+interface Result {
+    block: Block,
+    transactions: []
+}
+
+interface Response {
+    ok: string;    
+    result: Result[]
+}
+
+
 const UsersPage = async () => {
     const res = await fetch(
-        'https://jsonplaceholder.typicode.com/users',
+        'https://node-forwarder.denaro.is/get_blocks?offset=333178&limit=5',
         // {next: {revalidate:10}}
         {cache: 'no-store'}
         )
-    const users: Users[] = await res.json();
+    const users: Response = await res.json();
+    
     return (
     <>
     <h1> Users</h1>
         <ul>
-            {users.map(user => <li key={user.id}>{user.name}</li>)}
+            {users.result.map(user => <li key={user.block.id}>{user.block.id}: {user.block.hash}</li>)}
         </ul>
     </>
   )
