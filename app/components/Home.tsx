@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./page.module.css";
-
+import Link from "next/link";
 interface Block {
   id: number;
   hash: string;
@@ -22,9 +22,9 @@ interface Data {
 
 const HomeTable = async () => {
   const mining = await fetch(
-    "https://node-forwarder.denaro.is/get_mining_info",
+    "https://node-forwarder.denaro.is/get_mining_info"
     // { cache: "no-store" }
-    { next: { revalidate: 10 } }
+    // { next: { revalidate: 10 } }
   );
   const mining_data = await mining.json();
   const last_block_id = mining_data.result.last_block.id - 4;
@@ -35,7 +35,7 @@ const HomeTable = async () => {
 
   return (
     <>
-      <h1>LATEST BLOCKS</h1>
+      <h1 className="text-center">LATEST BLOCKS</h1>
       <div className="table-responsive">
         <table className="table table-bordered">
           <thead>
@@ -53,7 +53,11 @@ const HomeTable = async () => {
               <tr key={block_data.block.id}>
                 <td>{block_data.block.id}</td>
                 <td className={styles.text_small}>{block_data.block.hash}</td>
-                <td className={styles.text_small}>{block_data.block.address}</td>
+                <td className={styles.text_small}>
+                  <Link href={`/address/${block_data.block.address}`}>
+                    {block_data.block.address}
+                  </Link>
+                </td>
                 <td>{block_data.block.difficulty}</td>
                 <td>{block_data.transactions.length}</td>
                 <td>{block_data.block.timestamp}</td>
