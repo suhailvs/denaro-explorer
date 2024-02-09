@@ -22,8 +22,8 @@ interface Data {
 
 const HomeTable = async () => {
   const mining = await fetch(
-    "https://node-forwarder.denaro.is/get_mining_info"
-    // { cache: "no-store" }
+    "https://node-forwarder.denaro.is/get_mining_info",
+    { cache: "no-store" }
     // { next: { revalidate: 10 } }
   );
   const mining_data = await mining.json();
