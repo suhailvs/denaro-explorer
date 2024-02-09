@@ -35,7 +35,7 @@ const HomeTable = async () => {
 
   return (
     <>
-      <h1 className="text-center">LATEST BLOCKSss</h1>
+      <h1 className="text-center">LATEST BLOCKS</h1>
       <div className="table-responsive">
         <table className="table table-bordered">
           <thead>

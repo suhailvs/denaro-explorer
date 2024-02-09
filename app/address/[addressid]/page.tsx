@@ -23,7 +23,8 @@ const AddressDetails = async ({
   params: { addressid: string };
 }) => {
   const transactions = await fetch(
-    `https://node-forwarder.denaro.is/get_address_info?address=${params.addressid}&transactions_count_limit=5`
+    `https://node-forwarder.denaro.is/get_address_info?address=${params.addressid}&transactions_count_limit=5`,
+    { cache: "no-store" }
   );
   const transactions_data: Data = await transactions.json();
 
