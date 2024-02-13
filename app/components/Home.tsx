@@ -35,6 +35,45 @@ const HomeTable = async () => {
 
   return (
     <>
+      <br />
+      <div className="row">
+        <div className="col-md-6">
+          <div className="card">
+            <h5 className="card-header">Latest Blocks</h5>
+            <div className="card-body">
+              <div className="list-group">
+                {last_5_blocks_data.result.reverse().map((block_data) => (
+                  <div
+                    className="list-group-item list-group-item-action"
+                    key={block_data.block.id}
+                  >
+                    <div className="d-flex w-100 justify-content-between">
+                      <h5 className="mb-1">{block_data.block.id}</h5>
+                      <small>{Date(block_data.block.timestamp * 1000)}</small>
+                    </div>
+                    <span className={styles.text_small}>
+                      Hash: <strong>{block_data.block.hash}</strong>
+                    </span>
+                    <br />
+                    <Link
+                      href={`/address/${block_data.block.address}`}
+                      className="link-info link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover"
+                    >
+                      <small>{block_data.block.address}</small>
+                    </Link>
+                    <br />
+                    <small>
+                      {block_data.transactions.length} {"Txs • "}
+                      {block_data.block.difficulty} Difficulty
+                    </small>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <h1 className="text-center">LATEST BLOCKS</h1>
       <div className="table-responsive">
         <table className="table table-bordered">
