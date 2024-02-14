@@ -2,6 +2,22 @@ import React from "react";
 import Navbar from "@/app/components/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 
+const BlockDetails = async ({ params }: { params: { blockid: string } }) => {
+  return (
+    <>
+      <Navbar />
+      <div>BlockDetails {params.blockid}</div>
+    </>
+  );
+};
+
+export default BlockDetails;
+
+/*
+
+
+
+
 interface Transactions {
   is_coinbase: any;
   hash: string;
@@ -16,13 +32,9 @@ interface Data {
   result: Result;
 }
 
-const AddressDetails = async ({
-  params,
-}: {
-  params: { addressid: string };
-}) => {
+const BlockDetails = async ({ params }: { params: { blockid: string } }) => {
   const transactions = await fetch(
-    `${process.env.API_URL}/get_address_info?address=${params.addressid}&transactions_count_limit=5`,
+    `${process.env.API_URL}/get_block_info?block=${params.blockid}&transactions_count_limit=5`,
     { cache: "no-store" }
   );
   const transactions_data: Data = await transactions.json();
@@ -35,8 +47,9 @@ const AddressDetails = async ({
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <h5>
-              <small className="text-body-secondary">Denaro Address: </small><br />
-              {params.addressid}
+              <small className="text-body-secondary">Denaro block: </small>
+              <br />
+              {params.blockid}
             </h5>
             <div className="alert alert-warning" role="alert">
               <strong>Denaro Balance</strong>
@@ -46,8 +59,8 @@ const AddressDetails = async ({
           </div>
         </div>
 
-        <h1 className="text-center">ADDRESS INFO</h1>
-        <h5 className="text-center">{params.addressid}</h5>
+        <h1 className="text-center">block INFO</h1>
+        <h5 className="text-center">{params.blockid}</h5>
         <p className="text-center">
           Balance {transactions_data.result.balance} DNR
         </p>
@@ -77,4 +90,5 @@ const AddressDetails = async ({
   );
 };
 
-export default AddressDetails;
+export default BlockDetails;
+*/

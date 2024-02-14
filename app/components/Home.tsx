@@ -21,15 +21,16 @@ interface Data {
 }
 
 const HomeTable = async () => {
+  // https://node-forwarder.denaro.is
   const mining = await fetch(
-    "https://node-forwarder.denaro.is/get_mining_info",
+    `${process.env.API_URL}/get_mining_info`,
     { cache: "no-store" }
     // { next: { revalidate: 10 } }
   );
   const mining_data = await mining.json();
   const last_block_id = mining_data.result.last_block.id - 4;
   const last_5_blocks = await fetch(
-    `https://node-forwarder.denaro.is/get_blocks?offset=${last_block_id}&limit=5`
+    `${process.env.API_URL}/get_blocks?offset=${last_block_id}&limit=5`
   );
   const last_5_blocks_data: Data = await last_5_blocks.json();
 

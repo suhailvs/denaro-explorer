@@ -6,10 +6,21 @@ import { useState } from "react";
 
 const Navbar = () => {
   const router = useRouter();
-  const [route, setRoute] = useState();
+  const [id, setId] = useState('');
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    router.push("/address/" + route);
+    let link = '';
+    if (id.length == 45){
+      link = "/address/";
+    } else if (id.length < 45){
+      link = "/block/";
+    } else if (id.length > 45){
+      link = "/transaction/";
+    }
+    if (link != '' && id.length > 0) {
+      router.push(link + id);
+    }
+    
   };
   return (
     <nav
@@ -32,9 +43,8 @@ const Navbar = () => {
             type="search"
             placeholder="Search for blocks, addresses or transactions"
             aria-label="Search for blocks, addresses or transactions"
-            name="route"
             onChange={(e: any) => {
-              setRoute(e.target.value);
+              setId(e.target.value);
             }}
           />
           <button className="btn btn-light" type="submit">
