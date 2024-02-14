@@ -1,16 +1,15 @@
 'use client'
 import React from "react";
 import Link from "next/link";
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation';
 import { useState } from "react";
 
 const Navbar = () => {
-  // const router = useRouter();
+  const router = useRouter();
   const [route, setRoute] = useState();
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    // router.push("/address/" + route);
-    console.log("/address/" + route)
+    router.push("/address/" + route);
   };
   return (
     <nav
