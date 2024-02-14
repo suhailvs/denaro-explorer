@@ -37,7 +37,7 @@ const HomeTable = async () => {
     <>
       <br />
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-lg-6 offset-lg-3">
           <div className="card">
             <h5 className="card-header">Latest Blocks</h5>
             <div className="card-body">
@@ -49,7 +49,7 @@ const HomeTable = async () => {
                   >
                     <div className="d-flex w-100 justify-content-between">
                       <h5 className="mb-1">{block_data.block.id}</h5>
-                      <small>{Date(block_data.block.timestamp * 1000)}</small>
+                      <small>{new Date(block_data.block.timestamp * 1000).toLocaleString()}</small>
                     </div>
                     <span className={styles.text_small}>
                       Hash: <strong>{block_data.block.hash}</strong>
@@ -72,38 +72,6 @@ const HomeTable = async () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <h1 className="text-center">LATEST BLOCKS</h1>
-      <div className="table-responsive">
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <td>ID</td>
-              <td>Hash</td>
-              <td>Address</td>
-              <td>Difficulty</td>
-              <td>Transactions</td>
-              <td>Time</td>
-            </tr>
-          </thead>
-          <tbody>
-            {last_5_blocks_data.result.reverse().map((block_data) => (
-              <tr key={block_data.block.id}>
-                <td>{block_data.block.id}</td>
-                <td className={styles.text_small}>{block_data.block.hash}</td>
-                <td className={styles.text_small}>
-                  <Link href={`/address/${block_data.block.address}`}>
-                    {block_data.block.address}
-                  </Link>
-                </td>
-                <td>{block_data.block.difficulty}</td>
-                <td>{block_data.transactions.length}</td>
-                <td>{block_data.block.timestamp}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </div>
     </>
   );
