@@ -23,14 +23,14 @@ interface Data {
 const HomeTable = async () => {
   // https://node-forwarder.denaro.is
   const mining = await fetch(
-    `${process.env.API_URL}/get_mining_info`,
+    `${process.env.api_base_url}/get_mining_info`,
     { cache: "no-store" }
     // { next: { revalidate: 10 } }
   );
   const mining_data = await mining.json();
   const last_block_id = mining_data.result.last_block.id - 4;
   const last_5_blocks = await fetch(
-    `${process.env.API_URL}/get_blocks?offset=${last_block_id}&limit=5`
+    `${process.env.api_base_url}/get_blocks?offset=${last_block_id}&limit=5`
   );
   const last_5_blocks_data: Data = await last_5_blocks.json();
 
@@ -49,8 +49,19 @@ const HomeTable = async () => {
                     key={block_data.block.id}
                   >
                     <div className="d-flex w-100 justify-content-between">
-                      <h5 className="mb-1">{block_data.block.id}</h5>
-                      <small>{new Date(block_data.block.timestamp * 1000).toLocaleString()}</small>
+                      <h4 className="mb-1">
+                        <Link className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                          href={`/block/${block_data.block.id}`}
+                        >
+                          #{block_data.block.id}
+                        </Link>
+                        
+                      </h4>
+                      <small>
+                        {new Date(
+                          block_data.block.timestamp * 1000
+                        ).toLocaleString()}
+                      </small>
                     </div>
                     <span className={styles.text_small}>
                       Hash: <strong>{block_data.block.hash}</strong>
