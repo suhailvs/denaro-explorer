@@ -1,10 +1,10 @@
-interface Inputs {
+interface Input {
   index: number;
   tx_hash: string;
   address: string;
   amount: number;
 }
-interface Outputs {
+interface Output {
   address: string;
   amount: number;
 }
@@ -13,8 +13,8 @@ export interface Transaction {
   hash: string;
   block_hash: string;
   message?: string;
-  inputs?: Inputs[];
+  inputs?: Input[];
   delta?: any;
   fees?: number;
-  outputs: Outputs[];
+  outputs: Output[];
 }

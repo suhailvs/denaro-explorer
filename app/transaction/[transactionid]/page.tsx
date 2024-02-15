@@ -41,10 +41,10 @@ const TransactionDetails = async ({
               {result.hash}
   {result.block_hash}
   {result.message}
-  {result.inputs}
+
   {result.delta}
   {result.fees}
-  {result.outputs}
+  
             </div>
           </div>
         </div>

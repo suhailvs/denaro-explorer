@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "@/app/components/Navbar";
-import { Transaction } from '../../interfaces/Transaction';
+import Link from "next/link";
+import { Transaction } from "../../interfaces/Transaction";
 interface Data {
   ok: string;
   result: Result;
@@ -11,9 +12,9 @@ interface Result {
   spendable_outputs: Spendable_Output[];
 }
 interface Spendable_Output {
-    amount: string;
-    tx_hash: string;
-    index: number;
+  amount: string;
+  tx_hash: string;
+  index: number;
 }
 
 const AddressDetails = async ({
@@ -60,7 +61,14 @@ const AddressDetails = async ({
             <tbody>
               {transactions_data.result.transactions.map((item) => (
                 <tr key={item.hash}>
-                  <td>{item.hash}</td>
+                  <td>
+                    <Link
+                      className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                      href={`/transaction/${item.hash}`}
+                    >
+                      {item.hash}
+                    </Link>
+                  </td>
                   <td>{item.is_coinbase ? "True" : "False"}</td>
                   <td>{item.message ? item.message : "None"}</td>
                 </tr>
