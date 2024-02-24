@@ -16,6 +16,51 @@ interface Spendable_Output {
   tx_hash: string;
   index: number;
 }
+const DivInputs = ({ data }: { data: Transaction }) => {
+  return data.inputs ? (
+    <div>
+      {data.inputs.map((item) => (
+        <div className="alert alert-info">
+          <strong>Inputs({item.index})</strong>
+          <br />
+          <Link
+            className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            href={`/transaction/${item.tx_hash}`}
+          >
+            Tx: {item.tx_hash.slice(0, 6)}-{item.tx_hash.slice(-6)}
+          </Link>
+          <br />
+          <Link href={`/address/${item.address}`}>
+            <small>{item.address}</small>
+          </Link>
+          <br />
+          <span>Amount: {item.amount}</span>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div></div>
+  );
+};
+
+const DivOutputs = ({ data }: { data: Transaction }) => {
+  return (
+    <div>
+      {data.outputs.map((item, index) => (
+        <div className="alert alert-success">
+          <strong>Outputs:</strong>
+          <br />
+
+          <Link href={`/address/${item.address}`}>
+            <small>{item.address}</small>
+          </Link>
+          <br />
+          <span>Amount: {item.amount}</span>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const AddressDetails = async ({
   params,
@@ -23,7 +68,7 @@ const AddressDetails = async ({
   params: { addressid: string };
 }) => {
   const transactions = await fetch(
-    `${process.env.api_base_url}/get_address_info?address=${params.addressid}&transactions_count_limit=5`,
+    `${process.env.api_base_url}/get_address_info?address=${params.addressid}&transactions_count_limit=50`,
     { cache: "no-store" }
   );
   const transactions_data: Data = await transactions.json();
@@ -36,45 +81,54 @@ const AddressDetails = async ({
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <h5>
-              <small className="text-body-secondary">Denaro Address: </small>
+              Denaro Address: <strong>{params.addressid.slice(0, 6)}-{params.addressid.slice(-6)}</strong>
               <br />
-              {params.addressid}
+              <small className="text-body-secondary">{params.addressid}</small>
             </h5>
             <div className="alert alert-warning" role="alert">
               <strong>Denaro Balance</strong>
               <br />
               <h3>{transactions_data.result.balance} DNR</h3>
             </div>
-          </div>
-        </div>
 
-        <p className="lead text-center">Latest 5 transactions</p>
-        <div className="table-responsive">
-          <table className="table table-bordered">
-            <thead>
-              <tr>
-                <td>Hash</td>
-                <td>Coinbase</td>
-                <td>Message</td>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions_data.result.transactions.map((item) => (
-                <tr key={item.hash}>
-                  <td>
-                    <Link
-                      className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                      href={`/transaction/${item.hash}`}
+            <div className="card">
+              <h5 className="card-header">Latest 50 transactions</h5>
+              <div className="card-body">
+                <div className="list-group">
+                  {transactions_data.result.transactions.map((item, index) => (
+                    <div
+                      className="list-group-item list-group-item-action"
+                      key={index}
                     >
-                      {item.hash}
-                    </Link>
-                  </td>
-                  <td>{item.is_coinbase ? "True" : "False"}</td>
-                  <td>{item.message ? item.message : "None"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                      <div className="d-flex w-100 justify-content-between">
+                        <h4 className="mb-1">
+                          <Link
+                            className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            href={`/transaction/${item.hash}`}
+                          >
+                            {index + 1}. #{item.hash.slice(0, 6)}-
+                            {item.hash.slice(-6)}
+                          </Link>
+                        </h4>
+                        <small>
+                          Coinbase: {item.is_coinbase ? "True" : "False"}
+                        </small>
+                      </div>
+                      <br />
+                      <DivInputs data={item} />
+                      <DivOutputs data={item} />
+                      <small>
+                        <strong>Fee:</strong> {item.fees ? item.fees : "-"}{" "}
+                        {" • "}
+                        <strong>Message:</strong>{" "}
+                        {item.message ? item.message : "-"}
+                      </small>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
