@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 import { Transaction } from "../../interfaces/Transaction";
+import TransactionComponent from "@/app/components/Transaction";
 interface Data {
   ok: string;
   result: Result;
@@ -16,51 +17,6 @@ interface Spendable_Output {
   tx_hash: string;
   index: number;
 }
-const DivInputs = ({ data }: { data: Transaction }) => {
-  return data.inputs ? (
-    <div>
-      {data.inputs.map((item) => (
-        <div className="alert alert-info">
-          <strong>Inputs({item.index})</strong>
-          <br />
-          <Link
-            className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-            href={`/transaction/${item.tx_hash}`}
-          >
-            Tx: {item.tx_hash.slice(0, 6)}-{item.tx_hash.slice(-6)}
-          </Link>
-          <br />
-          <Link href={`/address/${item.address}`}>
-            <small>{item.address}</small>
-          </Link>
-          <br />
-          <span>Amount: {item.amount}</span>
-        </div>
-      ))}
-    </div>
-  ) : (
-    <div></div>
-  );
-};
-
-const DivOutputs = ({ data }: { data: Transaction }) => {
-  return (
-    <div>
-      {data.outputs.map((item, index) => (
-        <div className="alert alert-success">
-          <strong>Outputs:</strong>
-          <br />
-
-          <Link href={`/address/${item.address}`}>
-            <small>{item.address}</small>
-          </Link>
-          <br />
-          <span>Amount: {item.amount}</span>
-        </div>
-      ))}
-    </div>
-  );
-};
 
 const AddressDetails = async ({
   params,
@@ -81,7 +37,7 @@ const AddressDetails = async ({
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <h5>
-              Denaro Address: <strong>{params.addressid.slice(0, 6)}-{params.addressid.slice(-6)}</strong>
+              Denaro Address: {params.addressid.slice(0, 6)}-{params.addressid.slice(-6)}
               <br />
               <small className="text-body-secondary">{params.addressid}</small>
             </h5>
@@ -94,36 +50,9 @@ const AddressDetails = async ({
             <div className="card">
               <h5 className="card-header">Latest 50 transactions</h5>
               <div className="card-body">
-                <div className="list-group">
+                <div className="list-group">                  
                   {transactions_data.result.transactions.map((item, index) => (
-                    <div
-                      className="list-group-item list-group-item-action"
-                      key={index}
-                    >
-                      <div className="d-flex w-100 justify-content-between">
-                        <h4 className="mb-1">
-                          <Link
-                            className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                            href={`/transaction/${item.hash}`}
-                          >
-                            {index + 1}. #{item.hash.slice(0, 6)}-
-                            {item.hash.slice(-6)}
-                          </Link>
-                        </h4>
-                        <small>
-                          Coinbase: {item.is_coinbase ? "True" : "False"}
-                        </small>
-                      </div>
-                      <br />
-                      <DivInputs data={item} />
-                      <DivOutputs data={item} />
-                      <small>
-                        <strong>Fee:</strong> {item.fees ? item.fees : "-"}{" "}
-                        {" • "}
-                        <strong>Message:</strong>{" "}
-                        {item.message ? item.message : "-"}
-                      </small>
-                    </div>
+                    <TransactionComponent item={item} index={index+1} />
                   ))}
                 </div>
               </div>

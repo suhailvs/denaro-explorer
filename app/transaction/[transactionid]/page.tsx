@@ -1,8 +1,7 @@
 import React from "react";
 import Navbar from "@/app/components/Navbar";
-import { Transaction } from '../../interfaces/Transaction';
-
-
+import { Transaction } from "../../interfaces/Transaction";
+import TransactionComponent from "@/app/components/Transaction";
 interface Data {
   ok: boolean;
   result: Transaction;
@@ -17,8 +16,6 @@ const TransactionDetails = async ({
     `${process.env.api_base_url}/get_transaction?tx_hash=${params.transactionid}&verify=true`
   );
   const data: Data = await transaction.json();
-
-  console.log(data);
   const result = data.result;
 
   if (data.ok) {
@@ -30,21 +27,18 @@ const TransactionDetails = async ({
           <div className="row">
             <div className="col-md-6 offset-md-3">
               <h5>
-                <small className="text-body-secondary">
-                  Transaction Hash:{" "}
-                </small>
+                Transaction Hash: {params.transactionid.slice(0, 6)}-
+                {params.transactionid.slice(-6)}
                 <br />
-                {params.transactionid}
+                
               </h5>
+              <small className="text-body-secondary">
+                  {params.transactionid}
+                </small>
 
-              {result.is_coinbase}
-              {result.hash}
-  {result.block_hash}
-  {result.message}
-
-  {result.delta}
-  {result.fees}
-  
+              <div className="list-group">
+                <TransactionComponent item={result} index={1} />
+              </div>
             </div>
           </div>
         </div>

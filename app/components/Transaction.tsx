@@ -67,12 +67,17 @@ const TransactionComponent = ({
             className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
             href={`/transaction/${item.hash}`}
           >
-            {`${index + 1}.` ? index : ""} #{item.hash.slice(0, 6)}-
-            {item.hash.slice(-6)}
+            {index}. #{item.hash.slice(0, 6)}-{item.hash.slice(-6)}
           </Link>
         </h4>
         <small>Coinbase: {item.is_coinbase ? "True" : "False"}</small>
       </div>
+      <Link
+        className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+        href={`/block/${item.block_hash}`}
+      >
+        Block: {item.block_hash.slice(0, 6)}-{item.block_hash.slice(-6)}
+      </Link>
       <br />
       <DivInputs data={item} />
       <DivOutputs data={item} />

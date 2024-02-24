@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "@/app/components/Navbar";
+import Link from "next/link";
 interface Data {
   ok: string;
   result: Result;
@@ -36,21 +37,49 @@ const BlockDetails = async ({ params }: { params: { blockid: string } }) => {
         <br />
         <div className="row">
           <div className="col-md-6 offset-md-3">
-            <h5>
-              <small className="text-body-secondary">Block: </small>
-              <br />
-              {params.blockid}
-            </h5>
-            <ul>
-              <li>{block.id}</li>
-              <li>{block.hash}</li>
-              <li>{block.content}</li>
-              <li>{block.address}</li>
-              <li>{block.random}</li>
-              <li>{block.difficulty}</li>
-              <li>{block.reward}</li>
-              <li>{block.timestamp}</li>
-            </ul>
+            <div className="card">
+              <h5 className="card-header">Denaro Block: #{block.id}</h5>
+              <div className="card-body">
+                Mined on:
+                <small>
+                  {new Date(block.timestamp * 1000).toLocaleString()}
+                </small>
+                <ul className="list-group">
+                  <li className="list-group-item">
+                    Hash: {block.hash.slice(0, 6)}-{block.hash.slice(-6)}
+                  </li>
+                  <li className="list-group-item">
+                    Difficulty: {block.difficulty}
+                  </li>
+                  <li className="list-group-item">
+                    Mined by:{" "}
+                    <Link href={`/address/${block.address}`}>
+                      <small>{block.address}</small>
+                    </Link>
+                  </li>
+                  <li className="list-group-item">
+                    Mining reward: {block.reward} DNR
+                  </li>
+                </ul>
+                <br />
+                <p className="lead">Block Transactions:</p>
+                {data.result.full_transactions.map((item) => (
+                  <div className="alert alert-success">
+                    Hash:
+                    <Link
+                      className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                      href={`/transaction/${item.hash}`}
+                    >
+                      {item.hash.slice(0, 6)}-{item.hash.slice(-6)}
+                    </Link>
+                    <br />
+                    <small>
+                      Coinbase: {item.is_coinbase ? "True" : "False"}
+                    </small>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
