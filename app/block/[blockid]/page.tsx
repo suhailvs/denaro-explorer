@@ -64,7 +64,7 @@ const BlockDetails = async ({ params }: { params: { blockid: string } }) => {
                 <br />
                 <p className="lead">Block Transactions:</p>
                 {data.result.full_transactions.map((item) => (
-                  <div className="alert alert-success">
+                  <div className="alert alert-success" key={item.hash}>
                     Hash:
                     <Link
                       className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"

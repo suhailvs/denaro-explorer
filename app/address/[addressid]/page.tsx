@@ -52,7 +52,7 @@ const AddressDetails = async ({
               <div className="card-body">
                 <div className="list-group">                  
                   {transactions_data.result.transactions.map((item, index) => (
-                    <TransactionComponent item={item} index={index+1} />
+                    <TransactionComponent key={index} item={item} index={index+1} />
                   ))}
                 </div>
               </div>

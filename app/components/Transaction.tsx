@@ -9,8 +9,8 @@ interface Data {
 const DivInputs = ({ data }: { data: Transaction }) => {
   return data.inputs ? (
     <div>
-      {data.inputs.map((item) => (
-        <div className="alert alert-info">
+      {data.inputs.map((item, index) => (
+        <div className="alert alert-info" key={index}>
           <strong>Inputs({item.index})</strong>
           <br />
           <Link
@@ -37,7 +37,7 @@ const DivOutputs = ({ data }: { data: Transaction }) => {
   return (
     <div>
       {data.outputs.map((item, index) => (
-        <div className="alert alert-success">
+        <div className="alert alert-success" key={index}>
           <strong>Outputs:</strong>
           <br />
 
