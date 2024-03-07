@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
-import LocalDateTime from "@/app/components/local-time";
+// import LocalDateTime from "@/app/components/local-time";
 interface Block {
   id: number;
   hash: string;
