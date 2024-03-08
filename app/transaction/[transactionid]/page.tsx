@@ -26,16 +26,7 @@ const TransactionDetails = async ({
           <br />
           <div className="row">
             <div className="col-md-6 offset-md-3">
-              <h5>
-                Transaction Hash: {params.transactionid.slice(0, 6)}-
-                {params.transactionid.slice(-6)}
-                <br />
-                
-              </h5>
-              <small className="text-body-secondary">
-                  {params.transactionid}
-                </small>
-
+              <h5>Transaction:</h5>
               <div className="list-group">
                 <TransactionComponent item={result} index={1} />
               </div>

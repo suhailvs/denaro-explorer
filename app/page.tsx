@@ -1,4 +1,3 @@
-import Link from "next/link";
 import HomeTable from "./components/Home";
 import Navbar from "./components/Navbar";
 

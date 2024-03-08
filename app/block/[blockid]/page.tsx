@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
+import LocalDateTime from "@/app/components/local-time";
 interface Data {
   ok: string;
   result: Result;
@@ -42,7 +43,7 @@ const BlockDetails = async ({ params }: { params: { blockid: string } }) => {
               <div className="card-body">
                 Mined on:
                 <small>
-                  {new Date(block.timestamp * 1000).toLocaleString()}
+                <LocalDateTime timestamp={block.timestamp} />
                 </small>
                 <ul className="list-group">
                   <li className="list-group-item">
@@ -54,7 +55,7 @@ const BlockDetails = async ({ params }: { params: { blockid: string } }) => {
                   <li className="list-group-item">
                     Mined by:{" "}
                     <Link href={`/address/${block.address}`}>
-                      <small>{block.address}</small>
+                      <small>{block.address.slice(0, 6)}-{block.address.slice(-6)}</small>
                     </Link>
                   </li>
                   <li className="list-group-item">
@@ -65,7 +66,7 @@ const BlockDetails = async ({ params }: { params: { blockid: string } }) => {
                 <p className="lead">Block Transactions:</p>
                 {data.result.full_transactions.map((item) => (
                   <div className="alert alert-success" key={item.hash}>
-                    Hash:
+                    Txs Hash:
                     <Link
                       className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
                       href={`/transaction/${item.hash}`}

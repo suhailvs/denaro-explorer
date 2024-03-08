@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "@/app/components/Navbar";
-import Link from "next/link";
 import { Transaction } from "../../interfaces/Transaction";
 import TransactionComponent from "@/app/components/Transaction";
 interface Data {
@@ -39,7 +38,6 @@ const AddressDetails = async ({
             <h5>
               Denaro Address: {params.addressid.slice(0, 6)}-{params.addressid.slice(-6)}
               <br />
-              <small className="text-body-secondary">{params.addressid}</small>
             </h5>
             <div className="alert alert-warning" role="alert">
               <strong>Denaro Balance</strong>

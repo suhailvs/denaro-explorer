@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
-// import LocalDateTime from "@/app/components/local-time";
+import LocalDateTime from "@/app/components/local-time";
 interface Block {
   id: number;
   hash: string;
@@ -44,24 +44,19 @@ const HomeTable = async () => {
 
           <div className="list-group">
             {last_5_blocks_data.result.reverse().map((block_data) => (
-              <div
-                className="list-group-item list-group-item-action"
-                key={block_data.block.id}
-              >
+              <div className="list-group-item" key={block_data.block.id}>
                 <div className="d-flex w-100 justify-content-between">
                   <h4 className="mb-1">
-                    <Link
-                      className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                      href={`/block/${block_data.block.id}`}
-                    >
+                    <Link href={`/block/${block_data.block.id}`}>
                       #{block_data.block.id}
                     </Link>
                   </h4>
                   <small>
-                    {new Date(
+                    {/* {new Date(
                           block_data.block.timestamp * 1000
-                        ).toLocaleString()}
-                                      </small>
+                        ).toLocaleString()} */}
+                    <LocalDateTime timestamp={block_data.block.timestamp} />
+                  </small>
                 </div>
                 <span className={styles.text_small}>
                   Hash:{" "}
@@ -71,10 +66,7 @@ const HomeTable = async () => {
                   </strong>
                 </span>
                 <br />
-                <Link
-                  href={`/address/${block_data.block.address}`}
-                  className="link-info link-offset-2 link-underline-opacity-75 link-underline-opacity-100-hover"
-                >
+                <Link href={`/address/${block_data.block.address}`}>
                   <small>
                     Address: {block_data.block.address.slice(0, 6)}-
                     {block_data.block.address.slice(-6)}

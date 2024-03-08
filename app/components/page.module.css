@@ -1,3 +1,9 @@
+@media only screen and (max-width: 600px) {
+  input#searchbarbig::placeholder {
+    font-size: .5em;
+  }
+}
+
 .text_small {
   color: (153, 153, 153);
   font-size: 0.75rem;
