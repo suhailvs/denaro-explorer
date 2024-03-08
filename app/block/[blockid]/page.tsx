@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 import LocalDateTime from "@/app/components/local-time";
 interface Data {
@@ -33,55 +32,47 @@ const BlockDetails = async ({ params }: { params: { blockid: string } }) => {
   const block = data.result.block;
   return (
     <>
-      <Navbar />
-      <div className="container">
-        <br />
-        <div className="row">
-          <div className="col-md-6 offset-md-3">
-            <div className="card">
-              <h5 className="card-header">Denaro Block: #{block.id}</h5>
-              <div className="card-body">
-                Mined on:
+      <div className="card">
+        <h5 className="card-header">Denaro Block: #{block.id}</h5>
+        
+        <div className="card-body">
+          Mined on:
+          <small>
+            <LocalDateTime timestamp={block.timestamp} />
+          </small>
+          <ul className="list-group">
+            <li className="list-group-item">
+              Hash: {block.hash.slice(0, 6)}-{block.hash.slice(-6)}<br />
+              <span className="text-xxsmall">{block.hash}</span>
+            </li>
+            <li className="list-group-item">Difficulty: {block.difficulty}</li>
+            <li className="list-group-item">
+              Mined by:{" "}
+              <Link href={`/address/${block.address}`}>
                 <small>
-                <LocalDateTime timestamp={block.timestamp} />
+                  {block.address.slice(0, 6)}-{block.address.slice(-6)}
                 </small>
-                <ul className="list-group">
-                  <li className="list-group-item">
-                    Hash: {block.hash.slice(0, 6)}-{block.hash.slice(-6)}
-                  </li>
-                  <li className="list-group-item">
-                    Difficulty: {block.difficulty}
-                  </li>
-                  <li className="list-group-item">
-                    Mined by:{" "}
-                    <Link href={`/address/${block.address}`}>
-                      <small>{block.address.slice(0, 6)}-{block.address.slice(-6)}</small>
-                    </Link>
-                  </li>
-                  <li className="list-group-item">
-                    Mining reward: {block.reward} DNR
-                  </li>
-                </ul>
-                <br />
-                <p className="lead">Block Transactions:</p>
-                {data.result.full_transactions.map((item) => (
-                  <div className="alert alert-success" key={item.hash}>
-                    Txs Hash:
-                    <Link
-                      className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                      href={`/transaction/${item.hash}`}
-                    >
-                      {item.hash.slice(0, 6)}-{item.hash.slice(-6)}
-                    </Link>
-                    <br />
-                    <small>
-                      Coinbase: {item.is_coinbase ? "True" : "False"}
-                    </small>
-                  </div>
-                ))}
-              </div>
+              </Link>
+            </li>
+            <li className="list-group-item">
+              Mining reward: {block.reward} DNR
+            </li>
+          </ul>
+          <br />
+          <p className="lead">Block Transactions:</p>
+          {data.result.full_transactions.map((item) => (
+            <div className="alert alert-success" key={item.hash}>
+              Txs Hash:
+              <Link
+                className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href={`/transaction/${item.hash}`}
+              >
+                {item.hash.slice(0, 6)}-{item.hash.slice(-6)}
+              </Link>
+              <br />
+              <small>Coinbase: {item.is_coinbase ? "True" : "False"}</small>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </>

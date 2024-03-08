@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "@/app/components/Navbar";
 import { Transaction } from "../../interfaces/Transaction";
 import TransactionComponent from "@/app/components/Transaction";
 interface Data {
@@ -21,33 +20,18 @@ const TransactionDetails = async ({
   if (data.ok) {
     return (
       <>
-        <Navbar />
-        <div className="container">
-          <br />
-          <div className="row">
-            <div className="col-md-6 offset-md-3">
-              <h5>Transaction:</h5>
-              <div className="list-group">
-                <TransactionComponent item={result} index={1} />
-              </div>
-            </div>
-          </div>
+        <h5>Transaction:</h5>
+        <span className="text-xsmall">{params.transactionid}</span>
+        <div className="list-group">
+          <TransactionComponent item={result} index={1} />
         </div>
       </>
     );
   } else {
     return (
       <>
-        <Navbar />
-        <div className="container">
-          <br />
-          <div className="row">
-            <div className="col-md-6 offset-md-3">
-              <div className="alert alert-danger" role="alert">
-                <h1>Transaction Not Found</h1>
-              </div>
-            </div>
-          </div>
+        <div className="alert alert-danger" role="alert">
+          <h1>Transaction Not Found</h1>
         </div>
       </>
     );

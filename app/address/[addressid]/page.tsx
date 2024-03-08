@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "@/app/components/Navbar";
 import { Transaction } from "../../interfaces/Transaction";
 import TransactionComponent from "@/app/components/Transaction";
 interface Data {
@@ -30,31 +29,25 @@ const AddressDetails = async ({
 
   return (
     <>
-      <Navbar />
-      <div className="container">
+      <h5>
+        Denaro Address: {params.addressid.slice(0, 6)}-
+        {params.addressid.slice(-6)}
         <br />
-        <div className="row">
-          <div className="col-md-6 offset-md-3">
-            <h5>
-              Denaro Address: {params.addressid.slice(0, 6)}-{params.addressid.slice(-6)}
-              <br />
-            </h5>
-            <div className="alert alert-warning" role="alert">
-              <strong>Denaro Balance</strong>
-              <br />
-              <h3>{transactions_data.result.balance} DNR</h3>
-            </div>
+      </h5>
+      <span className="text-xsmall">{params.addressid}</span>
+      <div className="alert alert-warning" role="alert">
+        <strong>Denaro Balance</strong>
+        <br />
+        <h3>{transactions_data.result.balance} DNR</h3>
+      </div>
 
-            <div className="card">
-              <h5 className="card-header">Latest 50 transactions</h5>
-              <div className="card-body">
-                <div className="list-group">                  
-                  {transactions_data.result.transactions.map((item, index) => (
-                    <TransactionComponent key={index} item={item} index={index+1} />
-                  ))}
-                </div>
-              </div>
-            </div>
+      <div className="card">
+        <h5 className="card-header">Latest 50 transactions</h5>
+        <div className="card-body">
+          <div className="list-group">
+            {transactions_data.result.transactions.map((item, index) => (
+              <TransactionComponent key={index} item={item} index={index + 1} />
+            ))}
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 @media only screen and (max-width: 600px) {
-  input#searchbarbig::placeholder {
+  .form-control-lg::placeholder {
     font-size: .5em;
   }
 }
