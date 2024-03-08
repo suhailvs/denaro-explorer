@@ -1,8 +1,4 @@
-@media only screen and (max-width: 600px) {
-  .form-control-lg::placeholder {
-    font-size: .5em;
-  }
-}
+
 
 .text_small {
   color: (153, 153, 153);

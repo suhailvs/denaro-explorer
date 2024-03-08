@@ -5,3 +5,9 @@
 .text-xxsmall {
   font-size: 0.45rem;
 }
+
+@media only screen and (max-width: 600px) {
+  .form-control-lg::placeholder {
+    font-size: 0.45rem;
+  }
+}
