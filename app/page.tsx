@@ -65,7 +65,7 @@ const HomeTable = async () => {
             <br />
             <Link href={`/address/${block_data.block.address}`}>
               <small>
-                Address: {block_data.block.address.slice(0, 6)}-
+                Mined by: {block_data.block.address.slice(0, 6)}-
                 {block_data.block.address.slice(-6)}
               </small>
             </Link>

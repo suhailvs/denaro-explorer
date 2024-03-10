@@ -10,7 +10,7 @@ const DivInputs = ({ data }: { data: Transaction }) => {
           <strong>Inputs({item.index})</strong>
           <br />
           <Link href={`/transaction/${item.tx_hash}`}>
-            Tx: {item.tx_hash.slice(0, 6)}-{item.tx_hash.slice(-6)}
+            Txs: {item.tx_hash.slice(0, 6)}-{item.tx_hash.slice(-6)}
           </Link>
           <br />
           <Link href={`/address/${item.address}`}>
@@ -60,7 +60,7 @@ const TransactionComponent = ({
       <div className="d-flex w-100 justify-content-between">
         <h4 className="mb-1">
           <Link href={`/transaction/${item.hash}`}>
-            {index}. #{item.hash.slice(0, 6)}-{item.hash.slice(-6)}
+            {index}. Txs:{item.hash.slice(0, 6)}-{item.hash.slice(-6)}
           </Link>
         </h4>
         <small>{item.is_coinbase ? "Coinbase" : ""}</small>
