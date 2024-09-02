@@ -1,8 +1,12 @@
+## denaro.stackschools.com
+
 https://www.youtube.com/watch?v=ZVnjOPwW4ZA
-  
-  npx create-next-app@latest
-  npm run dev
 
-  npm run build
+```bash
+npx create-next-app@latest
+npm run dev
+npm run build
+rafce
+```
 
-  rafce
+changing code and pushing will automatically deploy in vercel
